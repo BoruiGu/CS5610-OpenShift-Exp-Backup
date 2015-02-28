@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Week1 - Interactive</title>
+    <link rel="stylesheet" href="../css/css/style.css" />
+</head>
+<body>
+    <div class="main-content">
+        <a name="top"></a>
+        <h1>Week1 - Interactive</h1>
+        <p>In this experiment, I'll test html input field, drop down menu, radio button, etc.</p>
+        <ul>
+            <li>
+                <a href="#source">Source Files</a>
+            </li>
+        </ul>
+        <details open>
+            <summary>Click to show/hide the form</summary>
+            <form>
+                <div>
+                    <div>
+                        Progress
+                    </div>
+                    <progress max="100" value="40"></progress>
+                </div>
+                <br />
+                <div class="field-group">
+                    <label class="field-lable" for="email">Email</label>
+                    <div class="field">
+                        <input id="email" placeholder="username@sxxxx.com" title="Please enter your email" name="email" type="email" autofocus />
+                    </div>
+                    <p>here we have a placeholder as a hint for the users, a phrase "Please enter your email" that will appear when the user hovers on it, the input field is selected by default using autofocus attribute, input will be checked for validity on submission.</p>
+                </div>
+                <div class="field-group">
+                    <label class="field-lable" for="birthday">Birthday</label>
+                    <div class="field">
+                        <input id="brithday" title="Please enter your birthday" name="birthday" type="date" />
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label class="field-lable" for="age">Age</label>
+                    <div class="field">
+                        <input id="age" title="Please enter your age" name="age" type="number" min="1" max="150" value="30" />
+                    </div>
+                </div>
+                <div class="field-group">
+                    <input id="male" type="radio" name="sex" value="male" />
+                    <label for="male">Male</label>
+                    <input id="female" type="radio" name="sex" value="female" />
+                    <label for="female">Female</label>
+                </div>
+                <div class="field-group">
+                    <div>
+                        Education
+                    </div>
+                    <select name="education">
+                        <option value="u">undergraduate</option>
+                        <option value="g">graduate</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <div>
+                        Education2
+                    </div>
+                    <input name="edu2" list="edu2" />
+                    <datalist id="edu2">
+                        <option>undergraduate</option>
+                        <option>graduate</option>
+                    </datalist>
+                </div>
+                <br />
+                <div class="field-group">
+                    <div>Follow:</div>
+                    <input id="travel" type="checkbox" name="topics" value="travel" />
+                    <label class ="field-lable" for="travel">Travel</label>
+                    <input id="marriage" type="checkbox" name="topics" value="marriage" />
+                    <label class="field-lable" for="marriage">Marriage</label>
+                </div>
+                <br />
+                <div>
+                    <button type="submit">Submit</button>
+                    <button type="reset">Reset</button>
+                </div>
+            </form>
+        </details>
+        <a name="source"></a>
+        <h2 >Source Files </h2>
+        <a target="_blank" href="../../fileview/Default.aspx?~/experiments/html/01-interactive.html">html</a>
+        <a target="_blank" href="../../fileview/Default.aspx?~/experiments/html/css/style.css">css</a>
+        <br /><br /><br />
+        <div>
+            <a href="#top">back to top</a>
+        </div>
+    </div>
+</body>
+</html>
