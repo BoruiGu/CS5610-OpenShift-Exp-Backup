@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Week6 - List Management - Sort</title>    
+    <script src="http://code.angularjs.org/1.0.0rc10/angular-1.0.0rc10.js"></script>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <script src="js/03.js"></script>    
+</head>
+<body>
+    <div class="container" ng-app="ListManagement" ng-controller="ListManagementCtrl" ng-keydown="onKeyDown($event)" ng-keyup="onKeyUp($event)">
+        <h2>Week6 - List Management - Sort</h2>
+        <p>
+            This experiment is based on a
+            <a href="http://net4.ccs.neu.edu/home/borui/experiments/angular/05-list-management-select.html">previous experiment</a>
+            .<br />
+            Changes are persistant until the server restart. Scripts are splited into client side and server side.<br />
+            Client side: <br />
+            <ul>
+                <li>Generate request to server upon user's operation</li>
+                <li>Update contents according to server's response</li>
+                <li>Maintain states to support Sort and Select</li>
+            </ul>
+            Server side:<br />
+            <ul>
+                <li>Receive request, manipulte data, and send back result.</li>
+            </ul>
+            <br />
+            Notes:<br />
+            $http sends asynchronous request.
+            To resolve a single response:
+            <pre>
+$http.post(&#39;/api/vns/&#39;, vn).then(updateVns($scope));
+function updateVns($scope) {
+    return function (response) {
+        vns = response.data;
+        ...
+        $scope.vns = vns;
+    }
+}                
+</pre>
+            To resolve multiple results:
+            <pre>
+var promise = [];
+for (var i ...) {
+    ...
+    promise[i] = $http...
+}
+$q.all(promise).then(...);
+</pre>
+            <br />
+        </p>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th ng-click="sortItem(h)" ng-repeat="h in headers">
+                                {{h.charAt(0).toUpperCase() + h.slice(1)}}
+                                <span ng-show="isAsc($index)" class="glyphicon glyphicon-triangle-top"></span>
+                                <span ng-show="isDesc($index)" class="glyphicon glyphicon-triangle-bottom"></span>
+                            </th>
+                            <th>
+                                <button ng-click="reset()" class="btn btn-primary">Reset</button>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th><input ng-model="vn.title" class="form-control" /></th>
+                            <th><input ng-model="vn.date" class="form-control" /></th>
+                            <th><input ng-model="vn.rating" class="form-control" /></th>
+                            <th>
+                                <button class="btn btn-success" ng-click="addItem(vn)">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-click="flipSelected($event, vn)" ng-repeat="vn in vns">
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="chkbox[$index]" ng-change="itemChecked(vn)" />
+                                </label>
+                            </td>
+                            <td>{{vn.title}}</td>
+                            <td>{{vn.date}}</td>
+                            <td>{{vn.rating}}</td>
+                            <td>
+                                <button class="btn btn-danger" ng-click="removeItem(vn)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+        </div>
+        <button ng-click="removeSelectedItems()" ng-show="hasSelect()" class="btn btn-danger">Remove Selected</button>
+        <div ng-repeat="vn in vns">
+            {{vn.title}}
+        </div>
+        <br />
+        <div>
+            selected: {{selected}}<br />
+            chkbox: {{chkbox}}<br />
+        </div>
+    </div>        
+</body>
+</html>
