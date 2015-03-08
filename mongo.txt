@@ -1,0 +1,14 @@
+MongoDB 2.4 database added.  Please make note of these credentials:
+
+   Root User:     admin
+   Root Password: kqajI2hsxMR1
+   Database Name: experiments
+
+Connection URL: mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/
+
+//
+
+Please make note of these MongoDB credentials:
+  RockMongo User: admin
+  RockMongo Password: kqajI2hsxMR1
+URL: https://experiments-borui.rhcloud.com/rockmongo/
