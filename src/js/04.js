@@ -113,7 +113,7 @@ app.controller("ListManagementCtrl", function ($scope, $http, $q) {
         var promise = [];
         var index;
         for (var i in selected) 
-            promise[i] = $http.delete('api/vns/name/', vns[k].title);
+            promise[i] = $http.delete('api/vns/name/' + selected[i]);
         $q.all(promise).then(updateVns_DS($scope, selected.length));
     }
 

@@ -48,6 +48,22 @@ app.delete('/api/vns/index/:index', function (req, res) {
     res.json(vns);
 });
 
+app.delete('/api/vns/name/:name', function (req, res) {
+    var index = -1;
+    for (var i in vns) {
+        if (vns[i].title == req.params.name) {
+            index = i;
+            break;
+        }
+    }
+    if (index == -1) {
+        console.log("ERR: DELETE api/vns/name/" + req.params.name + " can't find index");
+    } else {
+        vns.splice(index, 1);
+    }
+    res.json(vns);
+});
+
 app.post('/api/vns', function (req, res) {
     vns.push(req.body);
     res.json(vns);

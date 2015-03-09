@@ -124,15 +124,8 @@ app.controller("ListManagementCtrl", function ($scope, $http, $q) {
     $scope.removeSelectedItems = function () {
         var promise = [];
         var index;
-        for (var i in selected) {
-            for (var k in vns) {
-                if (vns[k].title == selected[i]) {
-                    index = k;
-                    break;
-                }
-            }
-            promise[i] = $http.delete('api/vns/index/' + k);
-        }
+        for (var i in selected)
+            promise[i] = $http.delete('api/vns/name/' + selected[i]);
         $q.all(promise).then(updateVns_DS($scope, selected.length));
     }
 
