@@ -119,9 +119,9 @@ var connection = mysql.createConnection({
 app.get('/helloMySQL', function (req, res) {    
     connection.connect();
     connection.query('SELECT * from test', function (err, rows, fields) {
-        if (err) throw err;
-        console.log(rows);
-        console.log(fields);
+        //if (err) throw err;
+        //console.log(rows);
+        //console.log(fields);
         res.send(rows[0].str);
     });
     connection.end();
