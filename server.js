@@ -9,10 +9,10 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(multer()); // for parsing multipart/form-data
 
 var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var port = process.env.OPENSHIFT_NODEJS_PORT || 2525;
 
-app.get('/hello', function(req, res){
-  res.send('hello world');
+app.get('/hello', function (req, res) {
+    res.send('hello world');
 });
 
 app.use(express.static(__dirname + '/src'));
@@ -103,4 +103,27 @@ app.post('/api/vns/reset', function (req, res) {
         vns.push(vn);
     }
     res.json(vns);
+});
+
+/* mysql */
+
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host: /*$OPENSHIFT_MYSQL_DB_HOST ||*/ '127.0.0.1',
+    port: /*$OPENSHIFT_MYSQL_DB_PORT ||*/ 3306,
+    user: 'admingthglhl',
+    password: 'GpypqKGzdQWP',
+    database: 'experiments'
+});
+
+app.get('/helloMySQL', function (req, res) {
+    console.log(process.env);
+    //connection.connect();
+    //connection.query('SELECT * from test', function (err, rows, fields) {
+    //    if (err) throw err;
+    //    console.log(rows);
+    //    console.log(fields);
+    //    res.send(rows[0].str);
+    //});
+    //connection.end();
 });
