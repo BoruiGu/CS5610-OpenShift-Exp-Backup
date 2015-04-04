@@ -116,13 +116,15 @@ var connection = mysql.createConnection({
     database: 'experiments'
 });
 
-app.get('/helloMySQL', function (req, res) {    
-    connection.connect();
+connection.connect();
+
+app.get('/helloMySQL', function (req, res) {        
     connection.query('SELECT * from test', function (err, rows, fields) {
         if (err) throw err;
         console.log(rows);
-        console.log(fields);
-        connection.end();
+        console.log(fields);        
         res.send(rows[0].str);
     });    
 });
+
+//connection.end();
