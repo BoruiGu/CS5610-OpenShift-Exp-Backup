@@ -127,4 +127,49 @@ app.get('/helloMySQL', function (req, res) {
     });    
 });
 
+app.get('/api/students', function (req, res) {
+    connection.query('SELECT * from student', function (err, rows, fields) {
+        if (err) throw err;
+        res.json(rows);
+    });
+});
+
+var url = require('url');
+
+app.get('/api/addstudent', function (req, res) {
+    var query = url.parse(req.url, true).query;
+    connection.query('insert into student SET ?', query,
+    function (err, rows, fields) {
+        res.json(err);
+    });
+});
+
+app.get('/api/clubmember', function (req, res) {
+    var clubName = url.parse(req.url, true).query.clubName;
+    connection.query(
+    'select name, major from student where id in (select studentId from attend where clubName = ?)', clubName,
+    function (err, rows, fields) {
+        res.json(rows);
+    });
+});
+
+app.get('/api/clubmember2', function (req, res) {
+    var clubName = url.parse(req.url, true).query.clubName;
+    var Id = [];
+    connection.query(
+    'select studentId from attend where clubName = ?', clubName,
+    function (err, rows, fields) {
+        for (var i = 0; i < rows.length; i++) {
+            Id.push(rows[i].studentId);
+        }      
+        var query = connection.query(
+        'select name, major from student where id in ('+connection.escape(Id)+')',
+        function (err, rows, fields) {
+            console.log(err);
+            res.json(rows);
+        });
+        console.log(query.sql);
+    });         
+});
+
 //connection.end();
