@@ -109,21 +109,20 @@ app.post('/api/vns/reset', function (req, res) {
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-    host: /*$OPENSHIFT_MYSQL_DB_HOST ||*/ '127.0.0.1',
-    port: /*$OPENSHIFT_MYSQL_DB_PORT ||*/ 3306,
+    host: process.env.OPENSHIFT_MYSQL_DB_HOST || '127.0.0.1',
+    port: process.env.OPENSHIFT_MYSQL_DB_PORT || 3306,
     user: 'admingthglhl',
     password: 'GpypqKGzdQWP',
     database: 'experiments'
 });
 
-app.get('/helloMySQL', function (req, res) {
-    res.json(process.env);
-    //connection.connect();
-    //connection.query('SELECT * from test', function (err, rows, fields) {
-    //    if (err) throw err;
-    //    console.log(rows);
-    //    console.log(fields);
-    //    res.send(rows[0].str);
-    //});
-    //connection.end();
+app.get('/helloMySQL', function (req, res) {    
+    connection.connect();
+    connection.query('SELECT * from test', function (err, rows, fields) {
+        if (err) throw err;
+        console.log(rows);
+        console.log(fields);
+        res.send(rows[0].str);
+    });
+    connection.end();
 });
