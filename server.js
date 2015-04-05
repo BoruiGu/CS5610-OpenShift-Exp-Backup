@@ -136,7 +136,7 @@ app.get('/api/students', function (req, res) {
 
 var url = require('url');
 
-app.get('/api/addstudent', function (req, res) {
+app.post('/api/addstudent', function (req, res) {
     var query = url.parse(req.url, true).query;
     connection.query('insert into student SET ?', query,
     function (err, rows, fields) {
